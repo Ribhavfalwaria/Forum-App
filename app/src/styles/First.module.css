@@ -1,0 +1,30 @@
+.container {
+  background-color: black;
+  color: white;
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.childcontainer {
+  box-sizing: border-box;
+  border: 2px solid white;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 50px;
+  flex-direction: column;
+}
+
+.btn {
+  color: white;
+  background-color: transparent;
+  width: 90px;
+  box-sizing: border-box;
+  padding: 5px;
+  text-align: center;
+
+  border: 2px solid white;
+}
