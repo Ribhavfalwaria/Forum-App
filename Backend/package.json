@@ -78,8 +78,12 @@
     "whatwg-url": "^11.0.0"
   },
   "scripts": {
+    "nodemon": "npm nodemon",
     "start": "nodemon app.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
 }
