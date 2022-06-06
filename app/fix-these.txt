@@ -10,6 +10,14 @@ Registration
 Login 
     Wrong API implementation
     Convert into Formik
+    Handle Validations
+    on pressing enter you should login
 
 Forum
     Fix CSS when no questions are posted
+
+Questions 
+    Convert into Formik
+    on pressing enter you should post question
+    After posting question take him to forum.
+    Fix DB modeling
