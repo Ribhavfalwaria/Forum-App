@@ -45,6 +45,7 @@ router.post("/", async (req, res) => {
   const question = new Question({
     question: req.body.question,
     answer: req.body.answer,
+    userid: req.body.userid,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
   });

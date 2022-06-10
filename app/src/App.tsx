@@ -12,6 +12,8 @@ import Question from "./Question";
 function App() {
   const [firstname, setfirstname] = useState("");
   const [lastname, setlastname] = useState("");
+  const [l, setl] = useState("");
+  const [id, setid] = useState("");
   return (
     <div className="App">
       {/* <div>
@@ -33,14 +35,20 @@ function App() {
         <Route
           path="/login"
           element={
-            <Login setfirstname={setfirstname} setlastname={setlastname} />
+            <Login
+              setfirstname={setfirstname}
+              setlastname={setlastname}
+              setid={setid}
+            />
           }
         />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<First />} />
         <Route
           path="/forum"
-          element={<Forum firstname={firstname} lastname={lastname} />}
+          element={
+            <Forum firstname={firstname} lastname={lastname} userid={id} />
+          }
         />
         <Route
           path="/question"

@@ -7,11 +7,13 @@ interface objj {
   email: string;
   mobile: string;
   password: string;
+  _id: string;
 }
 
 interface LoginProps {
   setfirstname: Dispatch<SetStateAction<string>>;
   setlastname: Dispatch<SetStateAction<string>>;
+  setid: Dispatch<SetStateAction<string>>;
 }
 
 export default function Login(props: LoginProps) {
@@ -33,9 +35,9 @@ export default function Login(props: LoginProps) {
       if (item.firstname === username && item.password === password) {
         props.setfirstname(item.firstname);
         props.setlastname(item.lastname);
-        setTimeout(() => {
-          setuser(true);
-        }, 200);
+        props.setid(item._id);
+        setuser(true);
+        alert("User login successful");
       }
     });
   }
