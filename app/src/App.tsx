@@ -52,7 +52,9 @@ function App() {
         />
         <Route
           path="/question"
-          element={<Question firstname={firstname} lastname={lastname} />}
+          element={
+            <Question firstname={firstname} lastname={lastname} userid={id} />
+          }
         />
       </Routes>
     </div>

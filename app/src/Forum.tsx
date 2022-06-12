@@ -15,6 +15,7 @@ interface obj {
   _id: string;
   firstname: string;
   lastname: string;
+  userid: string;
 }
 
 type sb = {
@@ -78,58 +79,69 @@ export default function Forum(props: ForumProps) {
     <div className={styles.container}>
       <>
         {apidata.map((item: obj) => {
-          if (item._id === props.userid) {
-            setfb(true);
-          }
-          return (
-            <div key={item._id} className={styles.questioncontainer}>
-              <h2>Question: {item.question}</h2>
-              <div>
-                <p>
-                  posted by {item.firstname} {item.lastname}{" "}
-                </p>
+          if (!item) {
+            return (
+              <>
+                <h1>No Questions Posted </h1>
+              </>
+            );
+          } else {
+            return (
+              <div key={item._id} className={styles.questioncontainer}>
+                <h2>Question: {item.question}</h2>
+                <div>
+                  <p>
+                    posted by {item.firstname} {item.lastname}{" "}
+                  </p>
+                </div>
+                {item.answer.map((s: sb) => {
+                  return (
+                    <>
+                      <h3>{s.answer}</h3>
+                    </>
+                  );
+                })}
+                {item.userid === props.userid ? null : (
+                  <>
+                    <input
+                      type="textbox"
+                      onChange={(e) => {
+                        setanswerr(e.target.value);
+                      }}
+                      style={{ marginLeft: "7px" }}
+                    />
+
+                    <button
+                      className={styles.btn}
+                      onClick={() => {
+                        console.log(props.userid);
+
+                        seturl(url + 1);
+                        const requestOptions = {
+                          method: "PUT",
+                          headers: {
+                            "Content-Type": "application/json",
+                          },
+                          body: JSON.stringify({ answer: s }),
+                        };
+                        fetch(
+                          `http://localhost:9000/questions/${item._id}`,
+                          requestOptions
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(JSON.stringify({ answer: s }));
+                            alert("User Saved successfully...");
+                          });
+                      }}
+                    >
+                      submit
+                    </button>
+                  </>
+                )}
               </div>
-              {test(item)}
-              {fb ? null : (
-                <>
-                  <input
-                    type="textbox"
-                    onChange={(e) => {
-                      setanswerr(e.target.value);
-                    }}
-                    style={{ marginLeft: "7px" }}
-                  />
-
-                  <button
-                    className={styles.btn}
-                    onClick={() => {
-                      console.log(props.userid);
-
-                      seturl(url + 1);
-                      const requestOptions = {
-                        method: "PUT",
-                        headers: {
-                          "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ answer: s }),
-                      };
-                      fetch(
-                        `http://localhost:9000/questions/${item._id}`,
-                        requestOptions
-                      )
-                        .then((response) => response.json())
-                        .then((data) => {
-                          console.log(JSON.stringify({ answer: s }));
-                          alert("User Saved successfully...");
-                        });
-                    }}
-                  >
-                    submit
-                  </button>
-                </>
-              )}
-            </div>
-          );
+            );
+          }
         })}
         <br />
         <div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./styles/Login.module.css";
 interface objj {
   firstname: string;
@@ -17,6 +18,7 @@ interface LoginProps {
 }
 
 export default function Login(props: LoginProps) {
+  const navigate = useNavigate();
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("second");
   const [apidata, setapidata] = useState([]);
@@ -72,17 +74,11 @@ export default function Login(props: LoginProps) {
             style={{ marginLeft: "7px" }}
           />
         </div>
-        {user ? (
-          <Link to="/forum">
-            <button className={styles.btn} onClick={checklogin}>
-              LOGIN
-            </button>
-          </Link>
-        ) : (
+        <Link to="/forum">
           <button className={styles.btn} onClick={checklogin}>
             LOGIN
           </button>
-        )}
+        </Link>
       </div>
     </div>
   );
