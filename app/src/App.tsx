@@ -9,10 +9,10 @@ import { Routes, Route } from "react-router-dom";
 // import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 import Question from "./Question";
+import User from "./User";
 function App() {
   const [firstname, setfirstname] = useState("");
   const [lastname, setlastname] = useState("");
-  const [l, setl] = useState("");
   const [id, setid] = useState("");
   return (
     <div className="App">
@@ -42,7 +42,7 @@ function App() {
             />
           }
         />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<User />} />
         <Route path="/" element={<First />} />
         <Route
           path="/forum"

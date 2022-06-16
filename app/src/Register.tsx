@@ -1,15 +1,34 @@
-import React from "react";
+import { useState } from "react";
 import styles from "./styles/Register.module.css";
-import { Field, Formik, Form } from "formik";
+import { Field, Formik, Form, FormikProps } from "formik";
 import { Link } from "react-router-dom";
+import Secondpage from "./Secondpage";
+import Firstpage from "./Firstpage";
+import Thirdpage from "./Thirdpage";
 
-interface MyFormValues {
+// export interface MyFormValues {
+//   firstname: string;
+//   lastname: string;
+//   email: string;
+//   mobile: string;
+//   password: string;
+// }
+// const initialValues: MyFormValues = {
+//   firstname: "",
+//   lastname: "",
+//   email: "",
+//   mobile: "",
+//   password: "",
+// };
+
+export interface MyFormValues {
   firstname: string;
   lastname: string;
   email: string;
   mobile: string;
   password: string;
 }
+
 const initialValues: MyFormValues = {
   firstname: "",
   lastname: "",
@@ -19,6 +38,24 @@ const initialValues: MyFormValues = {
 };
 
 export default function Register() {
+  const [first, setfirst] = useState<string>("");
+
+  function registerform(first: string, formikProps: FormikProps<MyFormValues>) {
+    if (first === "secondpage") {
+      return (
+        <Secondpage
+          setfirst={setfirst}
+          first={first}
+          formikProps={formikProps}
+        />
+      );
+    } else if (first === "thirdpage") {
+      return <Thirdpage values={initialValues} />;
+    } else {
+      return <Firstpage setfirst={setfirst} first={first} />;
+    }
+  }
+
   return (
     <div className={styles.container}>
       <Formik

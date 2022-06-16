@@ -79,7 +79,7 @@ export default function Forum(props: ForumProps) {
     <div className={styles.container}>
       <>
         {apidata.map((item: obj) => {
-          if (!item) {
+          if (item === null) {
             return (
               <>
                 <h1>No Questions Posted </h1>
@@ -97,7 +97,10 @@ export default function Forum(props: ForumProps) {
                 {item.answer.map((s: sb) => {
                   return (
                     <>
-                      <h3>{s.answer}</h3>
+                      <h3>Answer:{s.answer}</h3>
+                      <h4>
+                        Posted by : {s.firstname} {s.lastname}
+                      </h4>
                     </>
                   );
                 })}
@@ -116,7 +119,6 @@ export default function Forum(props: ForumProps) {
                       onClick={() => {
                         console.log(props.userid);
 
-                        seturl(url + 1);
                         const requestOptions = {
                           method: "PUT",
                           headers: {
@@ -132,6 +134,7 @@ export default function Forum(props: ForumProps) {
                           .then((data) => {
                             console.log(JSON.stringify({ answer: s }));
                             alert("User Saved successfully...");
+                            seturl(url + 1);
                           });
                       }}
                     >
