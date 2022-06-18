@@ -1,0 +1,23 @@
+Fix postion of router and why first name and last name is here.
+
+Registration
+    Ask him to add more fields in registration flow.
+    Ask him to divide registration in different components.
+    No Validation in registration flow
+    Error handling if registration is not successful or validation error.
+    After successfull user creation redirect user to /login
+
+Login 
+    Wrong API implementation
+    Convert into Formik
+    Handle Validations
+    on pressing enter you should login
+
+Forum
+    Fix CSS when no questions are posted
+
+Questions 
+    Convert into Formik
+    on pressing enter you should post question
+    After posting question take him to forum.
+    Fix DB modeling

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles/Login.module.css";
 interface objj {
@@ -23,6 +22,7 @@ export default function Login(props: LoginProps) {
   const [password, setpassword] = useState("second");
   const [apidata, setapidata] = useState([]);
   const [user, setuser] = useState(false);
+
   useEffect(() => {
     fetch("http://localhost:9000/registers")
       .then((response) => response.json())
@@ -33,13 +33,14 @@ export default function Login(props: LoginProps) {
   }, []);
 
   function checklogin() {
-    apidata.find((item: objj) => {
-      if (item.firstname === username && item.password === password) {
+    apidata.forEach((item: objj) => {
+      if (item.email === username && item.password === password) {
         props.setfirstname(item.firstname);
         props.setlastname(item.lastname);
         props.setid(item._id);
         setuser(true);
         alert("User login successful");
+        navigate("/forum");
       }
     });
   }
@@ -74,11 +75,9 @@ export default function Login(props: LoginProps) {
             style={{ marginLeft: "7px" }}
           />
         </div>
-        <Link to="/forum">
-          <button className={styles.btn} onClick={checklogin}>
-            LOGIN
-          </button>
-        </Link>
+        <button className={styles.btn} onClick={checklogin}>
+          LOGIN
+        </button>
       </div>
     </div>
   );

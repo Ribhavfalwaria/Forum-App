@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const url = "mongodb://localhost/market";
+const url = "mongodb://localhost/forum";
 const app = express();
 const cors = require("cors");
 const partnerrouter = require("./routers/partners");
