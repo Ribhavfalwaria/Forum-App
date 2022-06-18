@@ -6,6 +6,7 @@ import styles from "./styles/Forum.module.css";
 interface ForumProps {
   firstname: string;
   lastname: string;
+  userid: string;
 }
 
 interface obj {
@@ -14,6 +15,7 @@ interface obj {
   _id: string;
   firstname: string;
   lastname: string;
+  userid: string;
 }
 
 type sb = {
@@ -33,10 +35,11 @@ export default function Forum(props: ForumProps) {
     answer: answerr,
     firstname: props.firstname,
     lastname: props.lastname,
+    userid: props.userid,
   };
   const [fb, setfb] = useState(false);
 
-  console.log(answerr);
+  console.log(fb);
   // const url = "http://localhost:9000/questions";
 
   useEffect(() => {
@@ -65,82 +68,83 @@ export default function Forum(props: ForumProps) {
       });
   }
 
-  function test(a: Array<sb>) {
-    a.map((s: sb) => {
-      return (
-        <>
-          <h1>Answer: {s.answer}</h1>
-          <p>
-            posted by {s.firstname} {s.lastname}{" "}
-          </p>
-        </>
-      );
-    });
+  function test(s: obj) {
+    if (s._id === props.userid) {
+      setfb(!fb);
+      return null;
+    }
   }
 
   return (
     <div className={styles.container}>
       <>
         {apidata.map((item: obj) => {
-          // setfb({item.firstname})
-          // if (
-          //   item.firstname === props.firstname &&
-          //   item.lastname === props.lastname
-          // ) {
-          //   setfb(true);
-          // }
-          return (
-            <div key={item._id} className={styles.questioncontainer}>
-              <h2>Question: {item.question}</h2>
-              <div>
-                <p>
-                  posted by {item.firstname} {item.lastname}{" "}
-                </p>
-              </div>
-              {item.answer.map((s: sb) => {
-                return (
+          if (item === null) {
+            return (
+              <>
+                <h1>No Questions Posted </h1>
+              </>
+            );
+          } else {
+            return (
+              <div key={item._id} className={styles.questioncontainer}>
+                <h2>Question: {item.question}</h2>
+                <div>
+                  <p>
+                    posted by {item.firstname} {item.lastname}{" "}
+                  </p>
+                </div>
+                {item.answer.map((s: sb) => {
+                  return (
+                    <>
+                      <h3>Answer:{s.answer}</h3>
+                      <h4>
+                        Posted by : {s.firstname} {s.lastname}
+                      </h4>
+                    </>
+                  );
+                })}
+                {item.userid === props.userid ? null : (
                   <>
-                    <h1>Answer: {s.answer}</h1>
-                    <p>
-                      posted by {s.firstname} {s.lastname}{" "}
-                    </p>
-                  </>
-                );
-              })}
-              <input
-                type="textbox"
-                onChange={(e) => {
-                  setanswerr(e.target.value);
-                }}
-                style={{ marginLeft: "7px" }}
-              />
+                    <input
+                      type="textbox"
+                      onChange={(e) => {
+                        setanswerr(e.target.value);
+                      }}
+                      style={{ marginLeft: "7px" }}
+                    />
 
-              <button
-                className={styles.btn}
-                onClick={() => {
-                  seturl(url + 1);
-                  const requestOptions = {
-                    method: "PUT",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ answer: s }),
-                  };
-                  fetch(
-                    `http://localhost:9000/questions/${item._id}`,
-                    requestOptions
-                  )
-                    .then((response) => response.json())
-                    .then((data) => {
-                      console.log(JSON.stringify({ answer: s }));
-                      alert("User Saved successfully...");
-                    });
-                }}
-              >
-                submit
-              </button>
-            </div>
-          );
+                    <button
+                      className={styles.btn}
+                      onClick={() => {
+                        console.log(props.userid);
+
+                        const requestOptions = {
+                          method: "PUT",
+                          headers: {
+                            "Content-Type": "application/json",
+                          },
+                          body: JSON.stringify({ answer: s }),
+                        };
+                        fetch(
+                          `http://localhost:9000/questions/${item._id}`,
+                          requestOptions
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(JSON.stringify({ answer: s }));
+                            alert("User Saved successfully...");
+                            seturl(url + 1);
+                          });
+                      }}
+                    >
+                      submit
+                    </button>
+                  </>
+                )}
+              </div>
+            );
+          }
         })}
         <br />
         <div>

@@ -7,19 +7,21 @@ interface objj {
   email: string;
   mobile: string;
   password: string;
+  _id: string;
 }
 
 interface LoginProps {
   setfirstname: Dispatch<SetStateAction<string>>;
   setlastname: Dispatch<SetStateAction<string>>;
+  setid: Dispatch<SetStateAction<string>>;
 }
 
 export default function Login(props: LoginProps) {
+  const navigate = useNavigate();
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("second");
   const [apidata, setapidata] = useState([]);
-
-  const navigate = useNavigate();
+  const [user, setuser] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:9000/registers")
@@ -35,6 +37,9 @@ export default function Login(props: LoginProps) {
       if (item.email === username && item.password === password) {
         props.setfirstname(item.firstname);
         props.setlastname(item.lastname);
+        props.setid(item._id);
+        setuser(true);
+        alert("User login successful");
         navigate("/forum");
       }
     });

@@ -5,6 +5,7 @@ import styles from "./styles/Question.module.css";
 interface QuestionProps {
   firstname: string;
   lastname: string;
+  userid: string;
 }
 
 type sb = {
@@ -20,6 +21,7 @@ export default function Question(props: QuestionProps) {
     question: question,
     firstname: props.firstname,
     lastname: props.lastname,
+    userid: props.userid,
   };
   return (
     <div className={styles.container}>

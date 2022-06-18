@@ -41,20 +41,44 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
-  const register = new Register({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    mobile: req.body.mobile,
-    password: req.body.password,
+// router.post("/", async (req, res) => {
+//   const register = new Register({
+//     firstname: req.body.firstname,
+//     lastname: req.body.lastname,
+//     email: req.body.email,
+//     mobile: req.body.mobile,
+//     password: req.body.password,
+//   });
+//   try {
+//     const a1 = await register.save();
+//     res.send(a1);
+//   } catch (err) {
+//     res.send("Error");
+//   }
+// });
+
+router.post("/", (req, res) => {
+  const { firstname, lastname, email, mobile, password } = req.body;
+  Register.findOne({ email: email }, (err, user) => {
+    if (user) {
+      res.send("User already registered");
+    } else {
+      const register = new Register({
+        firstname,
+        lastname,
+        email,
+        mobile,
+        password,
+      });
+      register.save((err) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send("Succesfully Registered");
+        }
+      });
+    }
   });
-  try {
-    const a1 = await register.save();
-    res.send(a1);
-  } catch (err) {
-    res.send("Error");
-  }
 });
 
 module.exports = router;

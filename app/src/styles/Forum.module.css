@@ -2,7 +2,7 @@
   background-color: black;
   color: white;
   display: flex;
-  height: 100%;
+  height: auto;
   width: 100%;
   justify-content: center;
   flex-direction: column;
@@ -36,7 +36,7 @@
   align-self: center;
   text-align: center;
   border: 1px solid white;
-  padding: 5px;
+  padding: 50px;
   width: 70%;
   height: auto;
   margin-top: 10px;

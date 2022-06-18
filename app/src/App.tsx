@@ -9,9 +9,11 @@ import { Routes, Route } from "react-router-dom";
 // import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 import Question from "./Question";
+import User from "./User";
 function App() {
   const [firstname, setfirstname] = useState("");
   const [lastname, setlastname] = useState("");
+  const [id, setid] = useState("");
   return (
     <div className="App">
       {/* <div>
@@ -33,18 +35,26 @@ function App() {
         <Route
           path="/login"
           element={
-            <Login setfirstname={setfirstname} setlastname={setlastname} />
+            <Login
+              setfirstname={setfirstname}
+              setlastname={setlastname}
+              setid={setid}
+            />
           }
         />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<User />} />
         <Route path="/" element={<First />} />
         <Route
           path="/forum"
-          element={<Forum firstname={firstname} lastname={lastname} />}
+          element={
+            <Forum firstname={firstname} lastname={lastname} userid={id} />
+          }
         />
         <Route
           path="/question"
-          element={<Question firstname={firstname} lastname={lastname} />}
+          element={
+            <Question firstname={firstname} lastname={lastname} userid={id} />
+          }
         />
       </Routes>
     </div>
