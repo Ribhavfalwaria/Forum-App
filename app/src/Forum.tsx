@@ -149,7 +149,9 @@ export default function Forum(props: ForumProps) {
         <br />
         <div>
           <Link to="/question">
-            <button className={styles.btn}>Post Your Question</button>
+            <button className={styles.btn} style={{ margin: "30px" }}>
+              Post Your Question
+            </button>
           </Link>
         </div>
       </>

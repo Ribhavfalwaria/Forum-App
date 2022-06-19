@@ -61,7 +61,7 @@ router.post("/", (req, res) => {
   const { firstname, lastname, email, mobile, password } = req.body;
   Register.findOne({ email: email }, (err, user) => {
     if (user) {
-      res.send("User already registered");
+      res.status(400).send("User already registered");
     } else {
       const register = new Register({
         firstname,
@@ -72,9 +72,9 @@ router.post("/", (req, res) => {
       });
       register.save((err) => {
         if (err) {
-          res.send(err);
+          res.status(404).send(err);
         } else {
-          res.send("Succesfully Registered");
+          res.status(200).send("Succesfully Registered");
         }
       });
     }

@@ -23,12 +23,12 @@ app.post("/login", (req, res) => {
   Register.findOne({ email: email }, (err, user) => {
     if (user) {
       if (password === user.password) {
-        res.send("Login successful");
+        res.status(200).send({ user: user, message: "Login Sucessful" });
       } else {
-        res.send("Password didnt match");
+        res.status(400).send({ message: "Password didnt match" });
       }
     } else {
-      res.send("User not registered");
+      res.status(404).send({ message: "User not registered" });
     }
   });
 });

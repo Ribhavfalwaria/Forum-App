@@ -21,7 +21,7 @@ export default function Login(props: LoginProps) {
   const navigate = useNavigate();
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("second");
-  const [apidata, setapidata] = useState([]);
+  const [apidata, setapidata] = useState<objj[]>([]);
   const [user, setuser] = useState(false);
   useEffect(() => {
     fetch("http://localhost:9000/registers")
@@ -33,15 +33,37 @@ export default function Login(props: LoginProps) {
   }, []);
 
   function checklogin() {
-    apidata.find((item: objj) => {
-      if (item.firstname === username && item.password === password) {
-        props.setfirstname(item.firstname);
-        props.setlastname(item.lastname);
-        props.setid(item._id);
-        setuser(true);
-        alert("User login successful");
-      }
-    });
+    // apidata.find((item: objj) => {
+    //   if (item.firstname === username && item.password === password) {
+    //     props.setfirstname(item.firstname);
+    //     props.setlastname(item.lastname);
+    //     props.setid(item._id);
+
+    //     setuser(true);
+    //     alert("User login successful");
+    //   }
+    // });
+    sessionStorage.setItem("email", username);
+    sessionStorage.setItem("password", password);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: username, password: password }),
+    };
+
+    fetch("http://localhost:9000/login", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        alert(data.message);
+        setapidata(data);
+        props.setfirstname(data.user.firstname);
+        props.setlastname(data.user.lastname);
+        props.setid(data.user._id);
+        if (data.message === "Login Sucessful") {
+          setuser(true);
+          navigate("/forum");
+        }
+      });
   }
   return (
     <div className={styles.container}>
@@ -74,11 +96,9 @@ export default function Login(props: LoginProps) {
             style={{ marginLeft: "7px" }}
           />
         </div>
-        <Link to="/forum">
-          <button className={styles.btn} onClick={checklogin}>
-            LOGIN
-          </button>
-        </Link>
+        <button className={styles.btn} onClick={checklogin}>
+          LOGIN
+        </button>
       </div>
     </div>
   );

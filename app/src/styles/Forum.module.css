@@ -2,7 +2,7 @@
   background-color: black;
   color: white;
   display: flex;
-  height: auto;
+  height: 100;
   width: 100%;
   justify-content: center;
   flex-direction: column;
@@ -16,6 +16,7 @@
   display: flex;
   padding: 50px;
   flex-direction: column;
+
   justify-content: center;
 }
 
