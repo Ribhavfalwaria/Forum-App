@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./styles/Question.module.css";
 
 interface QuestionProps {
@@ -16,6 +17,7 @@ type sb = {
 
 export default function Question(props: QuestionProps) {
   const [question, setquestion] = useState("");
+  const navigate = useNavigate();
 
   let s = {
     question: question,
@@ -60,14 +62,12 @@ export default function Question(props: QuestionProps) {
                 console.log(data);
                 alert("Question Posted successfully");
               });
+            navigate("/forum");
           }}
         >
           submit
         </button>
         <br />
-        <Link to="/forum">
-          <button className={styles.btn}>BACK</button>
-        </Link>
       </div>
     </div>
   );

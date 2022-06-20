@@ -32,6 +32,18 @@
   border: 2px solid white;
 }
 
+.logoutbtn {
+  color: white;
+  background-color: transparent;
+  width: 200px;
+  box-sizing: border-box;
+  padding: 5px;
+  margin: 10px;
+  text-align: center;
+  align-self: flex-end;
+  border: 2px solid white;
+}
+
 .questioncontainer {
   box-sizing: border-box;
   align-self: center;

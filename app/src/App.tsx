@@ -16,21 +16,6 @@ function App() {
   const [id, setid] = useState("");
   return (
     <div className="App">
-      {/* <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/topics">Topics</Link>
-          </li>
-          <li>
-            <Link to="/settings">Settings</Link>
-          </li>
-        </ul>
-        <hr />
-        <Main />
-      </div> */}
       <Routes>
         <Route
           path="/login"
