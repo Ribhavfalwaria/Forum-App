@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles/Login.module.css";
@@ -23,7 +23,6 @@ export default function Login(props: LoginProps) {
   // }, []);
 
   function checklogin() {
-    let count = 0;
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,19 +32,21 @@ export default function Login(props: LoginProps) {
     fetch("http://localhost:9000/login", requestOptions)
       .then((response) => {
         if (response.status === 200) {
-          ++count;
+          return response.json();
+        } else {
+          throw new Error(JSON.stringify(response.status));
         }
-        return response.json();
       })
       .then((data) => {
         alert(data.message);
-        if (count > 0) {
-          props.setfirstname(data.user.firstname);
-          props.setlastname(data.user.lastname);
-          sessionStorage.setItem("email", username);
-          props.setid(data.user._id);
-          navigate("/forum");
-        }
+        props.setfirstname(data.user.firstname);
+        props.setlastname(data.user.lastname);
+        localStorage.setItem("email", username);
+        props.setid(data.user._id);
+        navigate("/forum");
+      })
+      .catch((data) => {
+        alert("An Error ocurred with status code " + " " + data.message);
       });
   }
   return (
@@ -72,8 +73,8 @@ export default function Login(props: LoginProps) {
           </label>
           <input
             type="password"
-            id="firstname"
-            name="firstname"
+            id="password"
+            name="password"
             // placeholder="First Name"
             onChange={(e) => setpassword(e.target.value)}
             style={{ marginLeft: "7px" }}
